@@ -1,0 +1,14 @@
+ [
+  {
+  "name": "Red",
+  "location": "100, 230",
+  "time": "14 mins",
+  "station": "Phelps Gate",
+  },
+  {
+  "name": "Blue",
+  "location": "120, 230",
+  "time": "2 mins",
+  "station": "Science Hill",
+  },
+]

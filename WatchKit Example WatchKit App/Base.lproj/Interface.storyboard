@@ -1,16 +1,57 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WqE-Hm-2kP">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11055"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11077"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
-        <scene sceneID="aou-V4-d1y">
+        <!--Buses Schedule-->
+        <scene sceneID="GMo-TN-5EL">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModuleProvider="target"/>
+                <controller identifier="ScheduleController" title="Buses Schedule" id="WqE-Hm-2kP" customClass="ScheduleInterfaceController" customModule="WatchKit_Example">
+                    <items>
+                        <table alignment="left" id="DzO-3i-8BA">
+                            <items>
+                                <tableRow identifier="BusRowController" id="rFY-ed-5nS" customClass="BusRowController" customModule="WatchKit_Example">
+                                    <group key="rootItem" width="1" alignment="left" id="oKy-lz-Hfd">
+                                        <items>
+                                            <separator alignment="left" id="xRd-Ls-do2">
+                                                <color key="color" red="1" green="0.61883850669999996" blue="0.48482548199999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            </separator>
+                                            <group width="1" alignment="left" layout="vertical" spacing="0.0" id="fsu-ds-pNN">
+                                                <items>
+                                                    <group width="1" height="20" alignment="left" spacing="7" id="C1W-Zn-7qi">
+                                                        <items>
+                                                            <label alignment="left" text="Red Line" id="c1I-94-UDz">
+                                                                <color key="textColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </label>
+                                                            <label alignment="right" text="16 min" id="ZDc-pE-Nni"/>
+                                                        </items>
+                                                    </group>
+                                                    <group width="1" height="20" alignment="left" verticalAlignment="bottom" id="GeS-YW-Rbe">
+                                                        <items>
+                                                            <label alignment="left" text="Phelps Gate" id="avp-ko-7nx"/>
+                                                        </items>
+                                                    </group>
+                                                </items>
+                                            </group>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="busNameLabel" destination="c1I-94-UDz" id="7Po-7y-I7I"/>
+                                        <outlet property="busStationLabel" destination="avp-ko-7nx" id="5Gg-m4-dGv"/>
+                                        <outlet property="busTimeLabel" destination="ZDc-pE-Nni" id="lYn-1P-J6s"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="busesTable" destination="DzO-3i-8BA" id="pLe-md-kab"/>
+                    </connections>
+                </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="345"/>
+            <point key="canvasLocation" x="161" y="95"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -31,7 +72,7 @@
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModuleProvider="target"/>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="WatchKit_Example_WatchKit_App" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="468" y="643"/>
         </scene>
