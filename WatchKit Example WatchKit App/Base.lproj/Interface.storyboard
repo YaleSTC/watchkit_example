@@ -12,7 +12,7 @@
                     <items>
                         <table alignment="left" id="DzO-3i-8BA">
                             <items>
-                                <tableRow identifier="BusRowController" id="rFY-ed-5nS" customClass="BusRowController" customModule="WatchKit_Example">
+                                <tableRow identifier="BusRow" id="rFY-ed-5nS" customClass="BusRowController" customModule="WatchKit_Example">
                                     <group key="rootItem" width="1" alignment="left" id="oKy-lz-Hfd">
                                         <items>
                                             <separator alignment="left" id="xRd-Ls-do2">

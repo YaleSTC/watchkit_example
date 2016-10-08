@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  BusType.swift
 //  WatchKit Example
 //
 //  Created by Clark on 10/7/16.
@@ -9,7 +9,7 @@
 import Foundation
 import WatchKit
 
-class busInfoClass {
+class BusInfo {
     var name: String
     var time: String
     var location: String
@@ -23,13 +23,13 @@ class busInfoClass {
         
     }
     
-    class func allBuses() -> [busInfoClass] {
-        var buses = [busInfoClass]()
+    class func allBuses() -> [BusInfo] {
+        var buses = [BusInfo]()
         if let path = Bundle.main.path(forResource: "busInfoJSON", ofType: "json"), let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [Dictionary<String, String>]
                 for dict in json {
-                    let bus = busInfoClass(dictionary: dict)
+                    let bus = BusInfo(dictionary: dict)
                     buses.append(bus)
                 }
             } catch {

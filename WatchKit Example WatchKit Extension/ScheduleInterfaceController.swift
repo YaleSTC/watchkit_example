@@ -7,13 +7,13 @@
 //
 
 import WatchKit
-import Foundation
+//import Foundation
 
 
 class ScheduleInterfaceController: WKInterfaceController {
 
     @IBOutlet var busesTable: WKInterfaceTable!
-    var buses = busInfoClass.allBuses()
+    var buses = BusInfo.allBuses()
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
