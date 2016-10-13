@@ -9,6 +9,7 @@
 import WatchKit
 
 class BusRowController: NSObject {
+    
     @IBOutlet var busNameLabel: WKInterfaceLabel!
     @IBOutlet var busTimeLabel: WKInterfaceLabel!
     @IBOutlet var busStationLabel: WKInterfaceLabel!

@@ -7,7 +7,7 @@
 //
 
 import WatchKit
-//import Foundation
+import Foundation
 
 
 class ScheduleInterfaceController: WKInterfaceController {
@@ -18,7 +18,7 @@ class ScheduleInterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         // Configure interface objects here.
-        busesTable.setNumberOfRows(buses.count, withRowType: "busRow")
+        busesTable.setNumberOfRows(buses.count, withRowType: "BusRow")
         
         for index in 0..<busesTable.numberOfRows {
             if let controllerRow = busesTable.rowController(at: index) as? BusRowController {

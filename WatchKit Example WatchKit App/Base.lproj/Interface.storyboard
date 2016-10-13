@@ -5,19 +5,16 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11077"/>
     </dependencies>
     <scenes>
-        <!--Buses Schedule-->
+        <!--All Buses-->
         <scene sceneID="GMo-TN-5EL">
             <objects>
-                <controller identifier="ScheduleController" title="Buses Schedule" id="WqE-Hm-2kP" customClass="ScheduleInterfaceController" customModule="WatchKit_Example">
+                <controller identifier="ScheduleController" title="All Buses" id="WqE-Hm-2kP" customClass="ScheduleInterfaceController" customModule="WatchKit_Example_WatchKit_Extension">
                     <items>
                         <table alignment="left" id="DzO-3i-8BA">
                             <items>
-                                <tableRow identifier="BusRow" id="rFY-ed-5nS" customClass="BusRowController" customModule="WatchKit_Example">
+                                <tableRow identifier="BusRow" id="rFY-ed-5nS" customClass="BusRowController" customModule="WatchKit_Example_WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="oKy-lz-Hfd">
                                         <items>
-                                            <separator alignment="left" id="xRd-Ls-do2">
-                                                <color key="color" red="1" green="0.61883850669999996" blue="0.48482548199999997" alpha="1" colorSpace="calibratedRGB"/>
-                                            </separator>
                                             <group width="1" alignment="left" layout="vertical" spacing="0.0" id="fsu-ds-pNN">
                                                 <items>
                                                     <group width="1" height="20" alignment="left" spacing="7" id="C1W-Zn-7qi">
@@ -25,7 +22,7 @@
                                                             <label alignment="left" text="Red Line" id="c1I-94-UDz">
                                                                 <color key="textColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             </label>
-                                                            <label alignment="right" text="16 min" id="ZDc-pE-Nni"/>
+                                                            <label alignment="right" text="3 mins" id="ZDc-pE-Nni"/>
                                                         </items>
                                                     </group>
                                                     <group width="1" height="20" alignment="left" verticalAlignment="bottom" id="GeS-YW-Rbe">

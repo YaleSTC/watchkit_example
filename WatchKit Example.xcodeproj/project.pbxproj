@@ -8,10 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4B6886D41DA975B900174CDA /* BusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CEE371DA855F800B1B3AD /* BusType.swift */; };
-		4B6CEE381DA855F800B1B3AD /* BusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CEE371DA855F800B1B3AD /* BusType.swift */; };
-		4B6CEE881DA9464D00B1B3AD /* ScheduleInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CEE871DA9464D00B1B3AD /* ScheduleInterfaceController.swift */; };
 		4B6CEE891DA9464D00B1B3AD /* ScheduleInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CEE871DA9464D00B1B3AD /* ScheduleInterfaceController.swift */; };
-		4B6CEE8B1DA946B500B1B3AD /* BusRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CEE8A1DA946B500B1B3AD /* BusRowController.swift */; };
 		4B6CEE8C1DA946B500B1B3AD /* BusRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CEE8A1DA946B500B1B3AD /* BusRowController.swift */; };
 		4B6CEE8E1DA94A6B00B1B3AD /* busInfoJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B6CEE8D1DA94A6B00B1B3AD /* busInfoJSON.json */; };
 		4B6CEE8F1DA94A6B00B1B3AD /* busInfoJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B6CEE8D1DA94A6B00B1B3AD /* busInfoJSON.json */; };
@@ -74,7 +71,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4B6CEE2C1DA84A8500B1B3AD /* WatchKit Example WatchKit App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WatchKit Example WatchKit App-Bridging-Header.h"; sourceTree = "<group>"; };
 		4B6CEE371DA855F800B1B3AD /* BusType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BusType.swift; path = "../WatchKit Example WatchKit App/BusType.swift"; sourceTree = "<group>"; };
 		4B6CEE871DA9464D00B1B3AD /* ScheduleInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleInterfaceController.swift; sourceTree = "<group>"; };
 		4B6CEE8A1DA946B500B1B3AD /* BusRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BusRowController.swift; path = "WatchKit Example WatchKit Extension/BusRowController.swift"; sourceTree = SOURCE_ROOT; };
@@ -156,7 +152,6 @@
 				9B5D78631DA8414C00E106AD /* Interface.storyboard */,
 				9B5D78661DA8414C00E106AD /* Assets.xcassets */,
 				9B5D78681DA8414C00E106AD /* Info.plist */,
-				4B6CEE2C1DA84A8500B1B3AD /* WatchKit Example WatchKit App-Bridging-Header.h */,
 			);
 			path = "WatchKit Example WatchKit App";
 			sourceTree = "<group>";
@@ -326,9 +321,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B6CEE881DA9464D00B1B3AD /* ScheduleInterfaceController.swift in Sources */,
-				4B6CEE381DA855F800B1B3AD /* BusType.swift in Sources */,
-				4B6CEE8B1DA946B500B1B3AD /* BusRowController.swift in Sources */,
 				9B5D78521DA8414B00E106AD /* ViewController.swift in Sources */,
 				9B5D78501DA8414B00E106AD /* AppDelegate.swift in Sources */,
 			);

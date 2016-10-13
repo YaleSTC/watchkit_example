@@ -47,3 +47,5 @@ class BusInfo {
         self.init(name: name, time: time, location: location, station: station)
     }
 }
+
+
