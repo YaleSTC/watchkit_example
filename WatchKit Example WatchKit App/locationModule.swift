@@ -11,42 +11,42 @@ import CoreLocation
 class LocationModule: NSObject, CLLocationManagerDelegate {
     
     // utilizes lazy variables
-    lazy var locatManager: CLLocationManager = self.manager();
-    lazy var currentLocation: CLLocation = self.currentLocation;
+    lazy var locationManager: CLLocationManager = self.manager()
+    var currentLocation: CLLocation?;
     
     
      func manager() -> CLLocationManager {
-        let myManager = CLLocationManager();
+        let myManager = CLLocationManager()
         myManager.distanceFilter = kCLDistanceFilterNone
         myManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-         myManager.delegate = self
+        myManager.delegate = self
         return myManager
     }
 
     
  
    func startUpdatingLocation() {
-        self.locatManager.startUpdatingLocation()
+        self.locationManager.startUpdatingLocation()
     }
     
     func stopUpdatingLocation() {
-        self.locatManager.stopUpdatingLocation()
+        self.locationManager.stopUpdatingLocation()
     }
     
     func requestLocationAccess() {
-        self.locatManager.requestAlwaysAuthorization()
+        self.locationManager.requestAlwaysAuthorization()
     }
     
     func coordinate()-> CLLocationCoordinate2D {
-        return self.currentLocation.coordinate
+        return (self.currentLocation?.coordinate)!
     }
     
     func speed()-> Double {
-       return self.currentLocation.speed
+       return self.currentLocation!.speed
     }
     
     func direction() -> Double {
-        return self.currentLocation.course
+        return self.currentLocation!.course
     }
     
     // location delegate stuff
