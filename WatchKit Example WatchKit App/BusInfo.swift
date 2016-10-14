@@ -7,9 +7,12 @@
 //
 
 import Foundation
+import CoreLocation
 
 class BusInfo {
     static var stopNames = [Int : String]()
+    // this array of stop IDs is updated periodically to represent the nearest stops to the user
+    static var nearbyStops = [Int]()
     var name: String
     var time: String
     var station: String

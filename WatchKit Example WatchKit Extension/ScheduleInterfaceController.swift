@@ -9,6 +9,7 @@
 import WatchKit
 import Foundation
 import WatchConnectivity
+import CoreLocation
 
 class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
 
@@ -46,6 +47,7 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
         // received data from the iOS app!
         if let stopsData = applicationContext["stops"] as? Data {
             var stopNames = [Int: String]()
+            var stopLocations = [Int: CLLocationCoordinate2D]()
             do {
                 if let stops = try JSONSerialization.jsonObject(with: stopsData, options: .allowFragments) as? NSDictionary {
                     if let stopsArray = stops["data"] as? NSArray {
@@ -54,6 +56,11 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
                                 let name = stopDict["name"] as! String
                                 let stopId = stopDict["stop_id"] as! NSString
                                 stopNames[stopId.integerValue] = name
+                                if let location = stopDict["location"] as? NSDictionary {
+                                    let longitude = location["lat"] as! NSNumber
+                                    let latitude = location["lng"] as! NSNumber
+                                    stopLocations[stopId.integerValue] = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+                                }
                             }
                         }
                     }
@@ -62,6 +69,15 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
                 print("error parsing")
             }
             BusInfo.stopNames = stopNames
+            BusInfo.nearbyStops = Array(stopNames.keys)
+            
+            // here start filtering based on user's location
+            /*
+             LocationModule.sharedModule.beginUpdates(stopLocations) { (stopIds: [Int])->Void in
+                BusInfo.nearbyStops = stopIds
+                self.updateUI()
+             }
+            */
         }
         if let vehiclesData = applicationContext["vehicles"] as? Data {
             do {
