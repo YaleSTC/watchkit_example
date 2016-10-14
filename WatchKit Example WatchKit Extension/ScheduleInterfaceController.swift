@@ -69,7 +69,6 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
                 print("error parsing")
             }
             BusInfo.stopNames = stopNames
-            BusInfo.stopLocations = stopLocations
             
             // here start filtering based on user's location
             /*
