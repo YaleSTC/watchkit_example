@@ -7,9 +7,15 @@
 //
 
 import Foundation
+import CoreLocation
 
 class BusInfo {
     static var stopNames = [Int : String]()
+    // dictionary mapping stop id to (latitude, longitude) tuple
+    static var stopLocations = [Int : CLLocationCoordinate2D]()
+    // this array of stop IDs is updated periodically to represent the
+    // nearest stops to the user
+    static var nearbyStops = [Int]()
     var name: String
     var time: String
     var station: String
