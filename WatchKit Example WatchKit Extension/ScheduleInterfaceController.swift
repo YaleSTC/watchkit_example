@@ -8,15 +8,26 @@
 
 import WatchKit
 import Foundation
+import WatchConnectivity
 
-
-class ScheduleInterfaceController: WKInterfaceController {
+class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
 
     @IBOutlet var busesTable: WKInterfaceTable!
     var buses = BusInfo.allBuses()
+    var session: WCSession!
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        updateUI()
+        
+        if (WCSession.isSupported()) {
+            session = WCSession.default()
+            session.delegate = self;
+            session.activate()
+        }
+    }
+    
+    func updateUI() {
         // Configure interface objects here.
         busesTable.setNumberOfRows(buses.count, withRowType: "BusRow")
         
@@ -25,8 +36,46 @@ class ScheduleInterfaceController: WKInterfaceController {
                 controllerRow.bus = buses[index]
             }
         }
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("activation completed")
+    }
+    
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        // received data from the iOS app!
+        if let stopsData = applicationContext["stops"] as? Data {
+            var stopNames = [Int: String]()
+            do {
+                if let stops = try JSONSerialization.jsonObject(with: stopsData, options: .allowFragments) as? NSDictionary {
+                    if let stopsArray = stops["data"] as? NSArray {
+                        for stop in stopsArray {
+                            if let stopDict = stop as? NSDictionary {
+                                let name = stopDict["name"] as! String
+                                let stopId = stopDict["stop_id"] as! NSString
+                                stopNames[stopId.integerValue] = name
+                            }
+                        }
+                    }
+                }
+            } catch {
+                print("error parsing")
+            }
+            BusInfo.stopNames = stopNames
+        }
+        if let vehiclesData = applicationContext["vehicles"] as? Data {
+            do {
+                if let vehicles = try TransitAPIModule.sharedModule.extractData(vehiclesData) {
+                    self.buses = vehicles
+                    self.updateUI()
+                }
+            } catch {
+                print("error parsing")
+            }
+        }
         
-        self.testAction()
+        print("BusInfo now has stop names \(BusInfo.stopNames)")
+        print("application context has arrived")
     }
 
     override func willActivate() {
@@ -39,27 +88,4 @@ class ScheduleInterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
     
-    // test code
-    let session = URLSession(configuration: .default)
-    
-    func testAction() {
-        var request = URLRequest(url: URL(string: "https://httpbin.org/post")!)
-        request.cachePolicy = .reloadIgnoringLocalCacheData
-        request.httpMethod = "POST"
-        let body = "Hello Cruel World!".data(using: .utf8)
-        let task = session.uploadTask(with: request, from: body) { (data, response, error) in
-            if let error = error {
-                print("error %@", error)
-            } else {
-                let response = response as! HTTPURLResponse
-                let data = data!
-                print("success %d", response.statusCode)
-                if response.statusCode == 200 {
-                    
-                    print(">>%@<<", String(data: data, encoding: .utf8) ?? "")
-                }  
-            }  
-        }  
-        task.resume()  
-    }
 }

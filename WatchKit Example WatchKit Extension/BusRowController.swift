@@ -18,8 +18,8 @@ class BusRowController: NSObject {
         didSet {
             if let bus = bus {
                 busNameLabel.setText(bus.name)
-                busTimeLabel.setText(bus.arrivalEstimates.description)
-                busStationLabel.setText(bus.latitude + ", "+bus.longitude)
+                busTimeLabel.setText(bus.time)
+                busStationLabel.setText(bus.station)
             }
         }
     }
