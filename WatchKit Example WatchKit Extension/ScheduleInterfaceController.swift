@@ -25,6 +25,8 @@ class ScheduleInterfaceController: WKInterfaceController {
                 controllerRow.bus = buses[index]
             }
         }
+        
+        self.testAction()
     }
 
     override func willActivate() {
@@ -36,5 +38,28 @@ class ScheduleInterfaceController: WKInterfaceController {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-
+    
+    // test code
+    let session = URLSession(configuration: .default)
+    
+    func testAction() {
+        var request = URLRequest(url: URL(string: "https://httpbin.org/post")!)
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+        request.httpMethod = "POST"
+        let body = "Hello Cruel World!".data(using: .utf8)
+        let task = session.uploadTask(with: request, from: body) { (data, response, error) in
+            if let error = error {
+                print("error %@", error)
+            } else {
+                let response = response as! HTTPURLResponse
+                let data = data!
+                print("success %d", response.statusCode)
+                if response.statusCode == 200 {
+                    
+                    print(">>%@<<", String(data: data, encoding: .utf8) ?? "")
+                }  
+            }  
+        }  
+        task.resume()  
+    }
 }

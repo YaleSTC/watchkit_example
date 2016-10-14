@@ -14,13 +14,12 @@ class BusRowController: NSObject {
     @IBOutlet var busTimeLabel: WKInterfaceLabel!
     @IBOutlet var busStationLabel: WKInterfaceLabel!
     
-    
     var bus: BusInfo? {
         didSet {
             if let bus = bus {
                 busNameLabel.setText(bus.name)
-                busTimeLabel.setText(bus.time)
-                busStationLabel.setText(bus.station)
+                busTimeLabel.setText(bus.arrivalEstimates.description)
+                busStationLabel.setText(bus.latitude + ", "+bus.longitude)
             }
         }
     }
