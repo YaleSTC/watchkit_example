@@ -14,7 +14,6 @@ class BusRowController: NSObject {
     @IBOutlet var busTimeLabel: WKInterfaceLabel!
     @IBOutlet var busStationLabel: WKInterfaceLabel!
     
-    
     var bus: BusInfo? {
         didSet {
             if let bus = bus {
