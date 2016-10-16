@@ -12,6 +12,8 @@ import WatchConnectivity
 class ViewController: UIViewController, WCSessionDelegate {
     var session: WCSession!
     var watchData = [String: Data]()
+    var reloadTimer: Timer!
+    let RELOAD_FREQUENCY = TimeInterval(60.0)
     
     func sendToWatch() {
         do {
@@ -27,23 +29,35 @@ class ViewController: UIViewController, WCSessionDelegate {
             session.delegate = self;
             session.activate()
         }
-        TransitAPIModule.sharedModule.requestNearbyBuses(endpoint: "vehicles", completionHandler: { (info: Data)->Void in
-            self.watchData["vehicles"] = info
-            self.sendToWatch()
-            print("Info: \(info)")
-            TransitAPIModule.sharedModule.requestNearbyBuses(endpoint: "stops", completionHandler: { (info: Data)->Void in
-                self.watchData["stops"] = info
-                self.sendToWatch()
-                print("Stops: \(NSString(data: info, encoding: 4)!)")
-                }, errorHandler: { (err: Error)->Void in
-                    print("Error: \(err)")
-            })
-            }, errorHandler: { (err: Error)->Void in
-                print("Error: \(err)")
-        })
+        self.reloadTimer = Timer(timeInterval: RELOAD_FREQUENCY, target: self, selector: #selector(makeAllAPIRequests), userInfo: nil, repeats: true)
+        self.reloadTimer.fire()
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    /**
+     * Makes sequential API calls to the transit API.
+     * Stores results in watchData
+     * After the last API call has completed successfully, calls sendToWatch()
+     */
+    func makeAPIRequests(for endpoints: [String]) {
+        if endpoints.count < 1 {
+            self.sendToWatch()
+        } else {
+            let endpoint = endpoints[0]
+            let remainingEndpoints = [String](endpoints.suffix(from: 1))
+            TransitAPIModule.sharedModule.requestNearbyBuses(endpoint: endpoint, completionHandler: { (data) in
+                self.watchData[endpoint] = data
+                self.makeAPIRequests(for: remainingEndpoints)
+                }, errorHandler: { (error) in
+                    print("Error: \(error)")
+            })
+        }
+    }
+    
+    func makeAllAPIRequests() {
+        self.makeAPIRequests(for: ["vehicles", "stops", "routes"])
     }
 
     override func didReceiveMemoryWarning() {

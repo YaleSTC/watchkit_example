@@ -14,6 +14,7 @@ class BusInfo {
     // this array of stop IDs is updated periodically to represent the nearest stops to the user
     static var nearbyStops = [Int]()
     var name: String
+    var route: Int
     var time: String
     var station: String
     
@@ -53,6 +54,7 @@ class BusInfo {
     init(dictionary: NSDictionary) {
         print(dictionary)
         self.name = dictionary["vehicle_id"] as! String
+        self.route = (dictionary["route_id"] as! NSString).integerValue
         let arrivalEstimates = dictionary["arrival_estimates"] as! NSArray
         // look only at the next arrival
         self.station = "Bus Stop"

@@ -89,6 +89,10 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
                 print("error parsing")
             }
         }
+        if let routesData = applicationContext["routes"] as? Data {
+            print("routes data is: ")
+            print(NSString(data: routesData, encoding: 4)!)
+        }
         
         print("BusInfo now has stop names \(BusInfo.stopNames)")
         print("application context has arrived")
