@@ -8,6 +8,9 @@
 
 import CoreLocation
 
+
+
+
 class LocationModule: NSObject, CLLocationManagerDelegate {
     
     // utilizes lazy variables
@@ -25,6 +28,8 @@ class LocationModule: NSObject, CLLocationManagerDelegate {
         myManager.delegate = self
         return myManager
     }
+    
+    
 
     // TODO: 
     /* 1. write a function filter(stops) declaration: func filter ([String: CLL2D coordinates]) -> [Int]
@@ -43,25 +48,42 @@ class LocationModule: NSObject, CLLocationManagerDelegate {
      didUpdate
     } */ */
     
+    func distance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) ->CLLocationDistance
+    {
+        let from = CLLocation(latitude: from.latitude, longitude: from.longitude)
+        let to = CLLocation(latitude: to.latitude, longitude: to.longitude)
+        return from.distance(from: to)
+    }
+    
     // returns a String array of the nearest stops
+    // passed an dictionary of bustopIDs with their 2d coordinate
+    // TO DO: return multiple bus stops
     func calculateShortestDistance(currentLocation: CLLocationCoordinate2D, dict: [String: CLLocationCoordinate2D])->[String] {
         
-        // check if have done this calculation before - returns nearest bus stops
-        // given a current location
-        // is it possible to do a memoizedValues - there isn't really a point unless the key is for your current location
-        /*
-        let memoizedValue = memoizedValues[currentLocation]
-        if memoizedValue != nil {
-            return memoizedValue
-        } */
-        
         var shortestDistance: CLLocationDistance? = nil
+        var closestStop: String
+        var closestStops = [String]()
         if dict.count > 0 {
-
+            for (stop, coordinate) in dict
+            {
+                // calculate distance from current location
+                let distance = self.distance(from: currentLocation, to: coordinate)
+                if (distance < shortestDistance!)
+                {
+                    // update the closest stop values
+                    shortestDistance = distance
+                    closestStop = stop
+                    closestStops.append(closestStop)
+                }
+            }
+            
+        return closestStops
+        
+            
         }
         
         
-    }
+    
     
     func filter(dict: [String: CLLocationCoordinate2D])->[Int]
     {
@@ -97,7 +119,7 @@ class LocationModule: NSObject, CLLocationManagerDelegate {
     // location delegate stuff
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
         self.currentLocation = locations.last!
-        callback(filter(stops))
+        callback(filter(dict: stops as! [String : CLLocationCoordinate2D]))
     }
     
 }
