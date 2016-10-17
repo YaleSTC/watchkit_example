@@ -13,10 +13,11 @@ import CoreLocation
 
 class LocationModule: NSObject, CLLocationManagerDelegate {
     
+    
     // utilizes lazy variables
     lazy var locationManager: CLLocationManager = self.manager()
     var currentLocation: CLLocation?;
-    var stops = [Int: CLLocationCoordinate2D] ()
+    var stops = [String: CLLocationCoordinate2D] ()
     var callback: (([Int]) ->Void)
 
     
@@ -48,32 +49,48 @@ class LocationModule: NSObject, CLLocationManagerDelegate {
      didUpdate
     } */ */
     
-    func distance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) ->CLLocationDistance
+  /*  func distance(from: CLLocation, to: CLLocationCoordinate2D) ->CLLocationDistance
     {
         let from = CLLocation(latitude: from.latitude, longitude: from.longitude)
         let to = CLLocation(latitude: to.latitude, longitude: to.longitude)
         return from.distance(from: to)
-    }
+    } */
     
     // returns a String array of the nearest stops
     // passed an dictionary of bustopIDs with their 2d coordinate
-    // TO DO: return multiple bus stops
-    func calculateShortestDistance(currentLocation: CLLocationCoordinate2D, dict: [String: CLLocationCoordinate2D])->[String] {
+    // QUESTION: should it be a string array or an integer array??
+    func calculateShortestDistance(currentLocation: CLLocation?, dict: [String: CLLocationCoordinate2D])->[String] {
         
         var shortestDistance: CLLocationDistance? = nil
-        var closestStop: String
+        var secondShortest: CLLocationDistance? = nil
+        var thirdShortest: CLLocationDistance? = nil
         var closestStops = [String]()
         if dict.count > 0 {
             for (stop, coordinate) in dict
             {
                 // calculate distance from current location
-                let distance = self.distance(from: currentLocation, to: coordinate)
-                if (distance < shortestDistance!)
+                let coordinateLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                let distance = currentLocation?.distance(from: coordinateLocation)
+                if (shortestDistance == nil || distance! < shortestDistance!)
                 {
                     // update the closest stop values
+                    thirdShortest = secondShortest
+                    secondShortest = shortestDistance
                     shortestDistance = distance
-                    closestStop = stop
-                    closestStops.append(closestStop)
+                    closestStops.append(stop)
+                }
+                else if (secondShortest == nil || distance! < secondShortest!)
+                {
+                    // update values
+                    thirdShortest = secondShortest
+                    secondShortest = distance
+                    closestStops.append(stop)
+                }
+                else if (thirdShortest == nil || distance! < thirdShortest!)
+                {
+                    // update values
+                    thirdShortest = distance
+                    closestStops.append(stop)
                 }
             }
             
@@ -84,13 +101,23 @@ class LocationModule: NSObject, CLLocationManagerDelegate {
         
         
     
-    
+    // returns the list of shortest stops
     func filter(dict: [String: CLLocationCoordinate2D])->[Int]
     {
+        let closestStops = calculateShortestDistance(currentLocation: self.currentLocation, dict: dict)
+        var stopList = [Int] ()
+        for stop in closestStops {
+            stopList.append(Int(stop)!)
+            
+        }
+        return stopList
         
     }
-    
- 
+        
+    func beginUpdates(dict: [String: CLLocationCoordinate2D], completionHandler: @escaping ([Int])->Void)-> Void {
+            self.stops = dict
+            self.callback = completionHandler
+        }
  
    func startUpdatingLocation() {
         self.locationManager.startUpdatingLocation()
@@ -119,7 +146,7 @@ class LocationModule: NSObject, CLLocationManagerDelegate {
     // location delegate stuff
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
         self.currentLocation = locations.last!
-        callback(filter(dict: stops as! [String : CLLocationCoordinate2D]))
+        callback(filter(dict: stops))
     }
     
 }
