@@ -12,7 +12,7 @@ import Foundation
 
 
 class connectAPI: NSObject  {
-    
+   /*
     public func getRoutes( )->Void
     {
         // configure URL session
@@ -48,7 +48,7 @@ class connectAPI: NSObject  {
         task.resume()
 
  
-    }
+    } */ 
     
 
     

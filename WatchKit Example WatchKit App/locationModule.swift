@@ -11,18 +11,29 @@ import CoreLocation
 
 
 
-class LocationModule: NSObject, CLLocationManagerDelegate {
+class LocationModule: NSObject, CLLocationManagerDelegate
+{
+    var locationManager: CLLocationManager
+    var currentLocation: CLLocation?
+    var callback: (([Int]) ->Void)?
+    var stops: [String: CLLocationCoordinate2D]
     
-    
+    override init() {
     // utilizes lazy variables
-    lazy var locationManager: CLLocationManager = self.manager()
+   /* lazy var locationManager: CLLocationManager = self.manager()
     var currentLocation: CLLocation?;
-    var stops = [String: CLLocationCoordinate2D] ()
-    var callback: (([Int]) ->Void)
+    lazy var stops = [String: CLLocationCoordinate2D] ()
+    var callback: (([Int]) ->Void)? */
+        self.locationManager = self.manager()
+        self.currentLocation = nil
+        self.stops = [String: CLLocationCoordinate2D] ()
+        self.callback = nil
+        
 
+    }
     
-    
-     func manager() -> CLLocationManager {
+     func manager() -> CLLocationManager
+     {
         let myManager = CLLocationManager()
         myManager.distanceFilter = kCLDistanceFilterNone
         myManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
@@ -59,7 +70,8 @@ class LocationModule: NSObject, CLLocationManagerDelegate {
     // returns a String array of the nearest stops
     // passed an dictionary of bustopIDs with their 2d coordinate
     // QUESTION: should it be a string array or an integer array??
-    func calculateShortestDistance(currentLocation: CLLocation?, dict: [String: CLLocationCoordinate2D])->[String] {
+    func calculateShortestDistance(currentLocation: CLLocation?, dict: [String: CLLocationCoordinate2D])->[String]
+    {
         
         var shortestDistance: CLLocationDistance? = nil
         var secondShortest: CLLocationDistance? = nil
@@ -106,7 +118,8 @@ class LocationModule: NSObject, CLLocationManagerDelegate {
     {
         let closestStops = calculateShortestDistance(currentLocation: self.currentLocation, dict: dict)
         var stopList = [Int] ()
-        for stop in closestStops {
+        for stop in closestStops
+        {
             stopList.append(Int(stop)!)
             
         }
@@ -114,7 +127,8 @@ class LocationModule: NSObject, CLLocationManagerDelegate {
         
     }
         
-    func beginUpdates(dict: [String: CLLocationCoordinate2D], completionHandler: @escaping ([Int])->Void)-> Void {
+    func beginUpdates(dict: [String: CLLocationCoordinate2D], completionHandler: @escaping ([Int])->Void)-> Void
+    {
             self.stops = dict
             self.callback = completionHandler
         }
@@ -146,7 +160,8 @@ class LocationModule: NSObject, CLLocationManagerDelegate {
     // location delegate stuff
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
         self.currentLocation = locations.last!
-        callback(filter(dict: stops))
+        callback!(filter(dict: stops))
     }
     
+
 }
