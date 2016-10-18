@@ -14,15 +14,14 @@ class BusRowController: NSObject {
     @IBOutlet var busTimeLabel: WKInterfaceLabel!
     @IBOutlet var busStationLabel: WKInterfaceLabel!
     
-    var bus: BusInfo? {
-        didSet {
-            if let bus = bus {
-                busNameLabel.setText(bus.name)
-                busTimeLabel.setText(bus.time)
-                busStationLabel.setText(bus.station)
-            }
+    var bus: BusInfo?
+    var stopId: Int?
+    
+    func updateUI() {
+        if let bus = bus, let stop = stopId {
+            busNameLabel.setText(bus.name)
+            busTimeLabel.setText(bus.stringForTimeOfArrivalAtStop(stop))
+            busStationLabel.setText(bus.stringForStop(stop))
         }
     }
-    
-    
 }
