@@ -26,6 +26,8 @@
 		9B5D78771DA8414C00E106AD /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5D78761DA8414C00E106AD /* ExtensionDelegate.swift */; };
 		9B5D78791DA8414C00E106AD /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5D78781DA8414C00E106AD /* NotificationController.swift */; };
 		9B5D787B1DA8414C00E106AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B5D787A1DA8414C00E106AD /* Assets.xcassets */; };
+		9B7965901DB572F900F079EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B79658F1DB572F900F079EA /* README.md */; };
+		9B7965911DB572F900F079EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B79658F1DB572F900F079EA /* README.md */; };
 		9BD6B6491DB0CFD2001AA04E /* TransitAPIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */; };
 		9BD6B64A1DB0CFD2001AA04E /* TransitAPIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */; };
 		9BD6B64B1DB0D075001AA04E /* BusInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CEE371DA855F800B1B3AD /* BusInfo.swift */; };
@@ -96,6 +98,7 @@
 		9B5D78781DA8414C00E106AD /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		9B5D787A1DA8414C00E106AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B5D787C1DA8414C00E106AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B79658F1DB572F900F079EA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitAPIModule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,6 +123,7 @@
 		9B5D78431DA8414B00E106AD = {
 			isa = PBXGroup;
 			children = (
+				9B79658F1DB572F900F079EA /* README.md */,
 				9B5D784E1DA8414B00E106AD /* WatchKit Example */,
 				9B5D78621DA8414C00E106AD /* WatchKit Example WatchKit App */,
 				9B5D78711DA8414C00E106AD /* WatchKit Example WatchKit Extension */,
@@ -330,6 +334,7 @@
 			files = (
 				9B5D78521DA8414B00E106AD /* ViewController.swift in Sources */,
 				9B5D78501DA8414B00E106AD /* AppDelegate.swift in Sources */,
+				9B7965901DB572F900F079EA /* README.md in Sources */,
 				9BD6B64B1DB0D075001AA04E /* BusInfo.swift in Sources */,
 				9BD6B6491DB0CFD2001AA04E /* TransitAPIModule.swift in Sources */,
 			);
@@ -345,6 +350,7 @@
 				4B6CEE891DA9464D00B1B3AD /* ScheduleInterfaceController.swift in Sources */,
 				9B5D78751DA8414C00E106AD /* InterfaceController.swift in Sources */,
 				4B6886D41DA975B900174CDA /* BusInfo.swift in Sources */,
+				9B7965911DB572F900F079EA /* README.md in Sources */,
 				4B6CEE8C1DA946B500B1B3AD /* BusRowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
