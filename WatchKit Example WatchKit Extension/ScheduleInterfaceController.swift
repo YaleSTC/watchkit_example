@@ -26,6 +26,8 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             session.delegate = self;
             session.activate()
         }
+        
+        LocationModule.sharedModule.requestLocationAccess()
     }
     
     func updateUI() {
@@ -72,12 +74,11 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             BusInfo.nearbyStops = Array(stopNames.keys)
             
             // here start filtering based on user's location
-            /*
-             LocationModule.sharedModule.beginUpdates(stopLocations) { (stopIds: [Int])->Void in
+            LocationModule.sharedModule.beginUpdates(stops: stopLocations) { (stopIds: [Int])->Void in
                 BusInfo.nearbyStops = stopIds
                 self.updateUI()
-             }
-            */
+            }
+            LocationModule.sharedModule.startUpdatingLocation()
         }
         if let vehiclesData = applicationContext["vehicles"] as? Data {
             do {
