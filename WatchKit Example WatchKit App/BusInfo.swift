@@ -17,7 +17,6 @@ class BusInfo {
     var route: Int
     // represents time of arrival as dictionary mapping stop ID -> seconds until arrival
     var timeOfArrival = [Int : TimeInterval]()
-    var station: String
     
     // for converting from API date to NSDate
     let dateFormatter = { () -> DateFormatter in
@@ -56,7 +55,6 @@ class BusInfo {
         self.route = (dictionary["route_id"] as! NSString).integerValue
         let arrivalEstimates = dictionary["arrival_estimates"] as! NSArray
         // look only at the next arrival
-        self.station = "Bus Stop"
         for possibleEstimate in arrivalEstimates {
             if let arrivalEstimate = possibleEstimate as? NSDictionary {
                 let arrivalTime = arrivalEstimate["arrival_at"] as! String
@@ -66,7 +64,6 @@ class BusInfo {
                 
                 let stopId = (arrivalEstimate["stop_id"] as! NSString).integerValue
                 self.timeOfArrival[stopId] = durationUntilArrival
-                self.station = BusInfo.stopNames[stopId] ?? "Unknown Stop"
             }
         }
     }
