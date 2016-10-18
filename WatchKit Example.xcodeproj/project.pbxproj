@@ -26,11 +26,11 @@
 		9B5D78771DA8414C00E106AD /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5D78761DA8414C00E106AD /* ExtensionDelegate.swift */; };
 		9B5D78791DA8414C00E106AD /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5D78781DA8414C00E106AD /* NotificationController.swift */; };
 		9B5D787B1DA8414C00E106AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B5D787A1DA8414C00E106AD /* Assets.xcassets */; };
-		C0C6021A1DA8479900F3B575 /* connectAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C602191DA8479900F3B575 /* connectAPI.swift */; };
-		C0C6021C1DA84F3A00F3B575 /* locationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6021B1DA84F3A00F3B575 /* locationModule.swift */; };
+		9BAA16271DB69FA6007CDEB5 /* LocationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6021B1DA84F3A00F3B575 /* LocationModule.swift */; };
 		9BD6B6491DB0CFD2001AA04E /* TransitAPIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */; };
 		9BD6B64A1DB0CFD2001AA04E /* TransitAPIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */; };
 		9BD6B64B1DB0D075001AA04E /* BusInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CEE371DA855F800B1B3AD /* BusInfo.swift */; };
+		C0C6021A1DA8479900F3B575 /* connectAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C602191DA8479900F3B575 /* connectAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,9 +98,9 @@
 		9B5D78781DA8414C00E106AD /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		9B5D787A1DA8414C00E106AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B5D787C1DA8414C00E106AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C0C602191DA8479900F3B575 /* connectAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = connectAPI.swift; sourceTree = "<group>"; };
-		C0C6021B1DA84F3A00F3B575 /* locationModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = locationModule.swift; path = "../WatchKit Example WatchKit App/locationModule.swift"; sourceTree = "<group>"; };
 		9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitAPIModule.swift; sourceTree = "<group>"; };
+		C0C602191DA8479900F3B575 /* connectAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = connectAPI.swift; sourceTree = "<group>"; };
+		C0C6021B1DA84F3A00F3B575 /* LocationModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationModule.swift; path = "WatchKit Example WatchKit App/LocationModule.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,7 +168,7 @@
 		9B5D78711DA8414C00E106AD /* WatchKit Example WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				C0C6021B1DA84F3A00F3B575 /* locationModule.swift */,
+				C0C6021B1DA84F3A00F3B575 /* LocationModule.swift */,
 				4B6CEE871DA9464D00B1B3AD /* ScheduleInterfaceController.swift */,
 				9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */,
 				4B6CEE8A1DA946B500B1B3AD /* BusRowController.swift */,
@@ -336,7 +336,6 @@
 			files = (
 				C0C6021A1DA8479900F3B575 /* connectAPI.swift in Sources */,
 				9B5D78521DA8414B00E106AD /* ViewController.swift in Sources */,
-				C0C6021C1DA84F3A00F3B575 /* locationModule.swift in Sources */,
 				9B5D78501DA8414B00E106AD /* AppDelegate.swift in Sources */,
 				9BD6B64B1DB0D075001AA04E /* BusInfo.swift in Sources */,
 				9BD6B6491DB0CFD2001AA04E /* TransitAPIModule.swift in Sources */,
@@ -353,6 +352,7 @@
 				4B6CEE891DA9464D00B1B3AD /* ScheduleInterfaceController.swift in Sources */,
 				9B5D78751DA8414C00E106AD /* InterfaceController.swift in Sources */,
 				4B6886D41DA975B900174CDA /* BusInfo.swift in Sources */,
+				9BAA16271DB69FA6007CDEB5 /* LocationModule.swift in Sources */,
 				4B6CEE8C1DA946B500B1B3AD /* BusRowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
