@@ -14,8 +14,27 @@ import CoreLocation
 class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
 
     @IBOutlet var busesTable: WKInterfaceTable!
-    var buses = BusInfo.allBuses()
+    // array of pairs (bus, stopId)
+    var busArrivals = [(bus: BusInfo, stopId: Int, time: TimeInterval)]()
+    var buses = [BusInfo]()
     var session: WCSession!
+    
+    func updateBusArrivals() {
+        busArrivals = []
+        // filter out the stops that are too far away, and create duplicates views of the bus as needed
+        for bus in buses {
+            for (arrivalStop, arrivalTime) in bus.timeOfArrival {
+                if BusInfo.nearbyStops.contains(arrivalStop) {
+                    busArrivals.append((bus: bus, stopId: arrivalStop, time: arrivalTime))
+                }
+            }
+        }
+        // sort by arrival time
+        busArrivals.sort { (busArrival1, busArrival2) -> Bool in
+            return busArrival1.time < busArrival2.time
+        }
+        self.updateUI()
+    }
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -32,11 +51,13 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
     
     func updateUI() {
         // Configure interface objects here.
-        busesTable.setNumberOfRows(buses.count, withRowType: "BusRow")
+        busesTable.setNumberOfRows(busArrivals.count, withRowType: "BusRow")
         
         for index in 0..<busesTable.numberOfRows {
             if let controllerRow = busesTable.rowController(at: index) as? BusRowController {
-                controllerRow.bus = buses[index]
+                controllerRow.bus = busArrivals[index].bus
+                controllerRow.stopId = busArrivals[index].stopId
+                controllerRow.updateUI()
             }
         }
     }
@@ -76,7 +97,7 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             // here start filtering based on user's location
             LocationModule.sharedModule.beginUpdates(stops: stopLocations) { (stopIds: [Int])->Void in
                 BusInfo.nearbyStops = stopIds
-                self.updateUI()
+                self.updateBusArrivals()
             }
             LocationModule.sharedModule.startUpdatingLocation()
         }
@@ -84,7 +105,7 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             do {
                 if let vehicles = try TransitAPIModule.sharedModule.extractData(vehiclesData) {
                     self.buses = vehicles
-                    self.updateUI()
+                    self.updateBusArrivals()
                 }
             } catch {
                 print("error parsing")
