@@ -28,31 +28,6 @@ class LocationModule: NSObject, CLLocationManagerDelegate
     var callback: (([Int]) ->Void)?
     var stops: [Int: CLLocationCoordinate2D]?
     
-
-    // TODO: 
-    /* 1. write a function filter(stops) declaration: func filter ([String: CLL2D coordinates]) -> [Int]
-        takes in a dictionary of the stopID and CLL2D coordinates, filters them and finds the nearest Stops and returning them in an integer array
-        2. beginUpdaates function that utilizes a call back that takes the same dictionary that filter took in, and an completion handler - it stores the value of dictionary and the value of the callback
-            declaration: func beginUpdates(dict: [int: CLL2D], completionHandler: ([int])->Void) {
-            self.stops = dict
-            self.callback = completionHandler
-        3. finally in the didUpdate function - use callback(filter(stops))
-    // takes in an NSDictionary that pairs Stop Ids with CLL2D coordinates
-    // filters by the current location
-    // returns the closest location
-  /*  func findNearbyStops(allStops: [String: CLLocationCoordinate2D])-> [String] {
-// filtering can't be done here
-     // helper filter Stops method - 
-     didUpdate
-    } */ */
-    
-  /*  func distance(from: CLLocation, to: CLLocationCoordinate2D) ->CLLocationDistance
-    {
-        let from = CLLocation(latitude: from.latitude, longitude: from.longitude)
-        let to = CLLocation(latitude: to.latitude, longitude: to.longitude)
-        return from.distance(from: to)
-    } */
-    
     let MAX_NUM_CLOSE_STOPS = 3
     
     // returns an array of the nearest stops
