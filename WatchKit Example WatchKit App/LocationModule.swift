@@ -8,9 +8,6 @@
 
 import CoreLocation
 
-
-
-
 class LocationModule: NSObject, CLLocationManagerDelegate
 {
     static let sharedModule = LocationModule()
@@ -33,9 +30,9 @@ class LocationModule: NSObject, CLLocationManagerDelegate
     // returns an array of the nearest stops
     // passed an dictionary of bustopIDs with their 2d coordinate
     func filter(stops: [Int: CLLocationCoordinate2D]) -> [Int] {
-        // if there is no current location, don't filter
+        // default current location is 143 elm st, or 41.309071, -72.925405
         if currentLocation == nil {
-            return [Int](stops.keys)
+            currentLocation = CLLocation(latitude: 41.309071, longitude: -72.925405)
         }
         var stopDistances = [(stopId: Int, distance: CLLocationDistance)]()
         
@@ -65,12 +62,13 @@ class LocationModule: NSObject, CLLocationManagerDelegate
     {
         self.stops = stops
         self.callback = completionHandler
+        completionHandler(filter(stops: stops))
     }
  
     func startUpdatingLocation() {
         self.locationManager.startUpdatingLocation()
     }
-    
+
     func stopUpdatingLocation() {
         self.locationManager.stopUpdatingLocation()
     }
