@@ -15,24 +15,8 @@ class BusInfo {
     static var nearbyStops = [Int]()
     var name: String
     var route: Int
-    var time: String
-    var station: String
-    
-    class func allBuses() -> [BusInfo] {
-        var buses = [BusInfo]()
-        if let path = Bundle.main.path(forResource: "busInfoJSON", ofType: "json"), let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
-            do {
-                if let busJSON = try TransitAPIModule.sharedModule.extractData(data) {
-                    for bus in busJSON {
-                        buses.append(bus)
-                    }
-                }
-            } catch {
-                print(error)
-            }
-        }
-        return buses
-    }
+    // represents time of arrival as dictionary mapping stop ID -> seconds until arrival
+    var timeOfArrival = [Int : TimeInterval]()
     
     // for converting from API date to NSDate
     let dateFormatter = { () -> DateFormatter in
@@ -43,13 +27,27 @@ class BusInfo {
         return formatter
     }()
     
-    // for converting from NSDate to displayed date
-    let prettyDateFormatter = { () -> DateFormatter in
-        let formatter = DateFormatter()
-        formatter.dateStyle = DateFormatter.Style.none
-        formatter.timeStyle = DateFormatter.Style.short
-        return formatter
-    }()
+    // for converting from TimeInterval to displayed date
+    func displayTimeInterval(_ interval: TimeInterval) -> String? {
+        if interval < 0 {
+            return nil
+        }
+        if interval < 60 {
+            return "\(Int(interval))s"
+        }
+        if interval < 3600 {
+            return "\(Int(interval/60))m"
+        }
+        return "\(Int(interval/3600))h"
+    }
+    
+    func stringForTimeOfArrivalAtStop(_ stop: Int) -> String {
+        return displayTimeInterval(self.timeOfArrival[stop] ?? 0.0) ?? "0s"
+    }
+    
+    func stringForStop(_ stop: Int) -> String {
+        return BusInfo.stopNames[stop] ?? "Unknown"
+    }
     
     init(dictionary: NSDictionary) {
         print(dictionary)
@@ -57,16 +55,15 @@ class BusInfo {
         self.route = (dictionary["route_id"] as! NSString).integerValue
         let arrivalEstimates = dictionary["arrival_estimates"] as! NSArray
         // look only at the next arrival
-        self.station = "Bus Stop"
-        self.time = "Eventually"
-        if arrivalEstimates.count > 0 {
-            if let arrivalEstimate = arrivalEstimates.firstObject as? NSDictionary {
+        for possibleEstimate in arrivalEstimates {
+            if let arrivalEstimate = possibleEstimate as? NSDictionary {
                 let arrivalTime = arrivalEstimate["arrival_at"] as! String
                 // arrival time is in format 2016-10-14T05:51:01-04:00
                 let ETA = dateFormatter.date(from: arrivalTime)!
-                self.time = prettyDateFormatter.string(from: ETA)
-                let stopId = arrivalEstimate["stop_id"] as! NSString
-                self.station = BusInfo.stopNames[stopId.integerValue] ?? "Unknown Stop"
+                let durationUntilArrival = ETA.timeIntervalSinceNow // if in the past, this is negative
+                
+                let stopId = (arrivalEstimate["stop_id"] as! NSString).integerValue
+                self.timeOfArrival[stopId] = durationUntilArrival
             }
         }
     }
