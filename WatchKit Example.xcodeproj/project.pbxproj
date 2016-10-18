@@ -98,12 +98,9 @@
 		9B5D78781DA8414C00E106AD /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		9B5D787A1DA8414C00E106AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B5D787C1DA8414C00E106AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		C0C602191DA8479900F3B575 /* connectAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = connectAPI.swift; sourceTree = "<group>"; };
 		C0C6021B1DA84F3A00F3B575 /* locationModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = locationModule.swift; path = "../WatchKit Example WatchKit App/locationModule.swift"; sourceTree = "<group>"; };
-=======
 		9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitAPIModule.swift; sourceTree = "<group>"; };
->>>>>>> 00f2b03a48424e901ae9696f90c9e64b4b9023ab
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,13 +168,10 @@
 		9B5D78711DA8414C00E106AD /* WatchKit Example WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				C0C6021B1DA84F3A00F3B575 /* locationModule.swift */,
-=======
 				4B6CEE871DA9464D00B1B3AD /* ScheduleInterfaceController.swift */,
 				9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */,
 				4B6CEE8A1DA946B500B1B3AD /* BusRowController.swift */,
->>>>>>> 00f2b03a48424e901ae9696f90c9e64b4b9023ab
 				9B5D78741DA8414C00E106AD /* InterfaceController.swift */,
 				9B5D78761DA8414C00E106AD /* ExtensionDelegate.swift */,
 				9B5D78781DA8414C00E106AD /* NotificationController.swift */,
