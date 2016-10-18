@@ -30,10 +30,15 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
         LocationModule.sharedModule.requestLocationAccess()
     }
     
+    func sortBusList() {
+        buses.sort() { $0.time < $1.time }
+    }
+    
     func updateUI() {
         // Configure interface objects here.
+        sortBusList()
+
         busesTable.setNumberOfRows(buses.count, withRowType: "BusRow")
-        
         for index in 0..<busesTable.numberOfRows {
             if let controllerRow = busesTable.rowController(at: index) as? BusRowController {
                 controllerRow.bus = buses[index]
