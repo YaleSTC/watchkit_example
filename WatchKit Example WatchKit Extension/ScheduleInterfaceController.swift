@@ -101,7 +101,9 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             }
             LocationModule.sharedModule.startUpdatingLocation()
         }
+        
         if let vehiclesData = applicationContext["vehicles"] as? Data {
+            //get vehicles data
             do {
                 if let vehicles = try TransitAPIModule.sharedModule.extractData(vehiclesData) {
                     self.buses = vehicles
@@ -110,7 +112,45 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             } catch {
                 print("error parsing")
             }
-        }
+            print("vehicles data is: ")
+            print(NSString(data: vehiclesData, encoding: 4)!)
+            
+            //get line numbers and colors
+            
+            var vehicleID: String
+            var lineNum: String
+            var lineName: String
+            var lineColor: String
+            
+            do {
+                if let lines = try JSONSerialization.jsonObject(with: vehiclesData, options: .allowFragments) as? NSDictionary {
+                    if let linesDict1 = lines["data"] as? NSDictionary {
+                        if let linesDict = linesDict1["128"] as? NSDictionary {
+                            for index in 0..<19 {
+                                if let line = linesDict[index as? String] as? NSDictionary {
+                                    if let lineSegments = line["segments"] as? NSArray {
+                                        for lineSegment in lineSegments {
+                                            if let lineSegDict = lineSegment as? NSDictionary {
+                                                if lineSegDict["0"] as? String == vehicleID {
+                                                    let lineNum = line["route_id"]
+                                                    let lineName = line["long_name"]
+                                                    let lineColor = line["color"]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch {
+                print("error parsing")
+            }
+            
+            BusInfo.lineName = lineName
+            BusInfo.lineColor = lineColor
+            
         if let routesData = applicationContext["routes"] as? Data {
             print("routes data is: ")
             print(NSString(data: routesData, encoding: 4)!)
@@ -118,6 +158,7 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
         
         print("BusInfo now has stop names \(BusInfo.stopNames)")
         print("application context has arrived")
+    }
     }
 
     override func willActivate() {

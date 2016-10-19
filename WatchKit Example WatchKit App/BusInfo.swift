@@ -18,6 +18,9 @@ class BusInfo {
     // represents time of arrival as dictionary mapping stop ID -> seconds until arrival
     var timeOfArrival = [Int : TimeInterval]()
     
+    var lineName: String
+    var lineColor: String
+    
     // for converting from API date to NSDate
     let dateFormatter = { () -> DateFormatter in
         let formatter = DateFormatter()
@@ -54,6 +57,10 @@ class BusInfo {
         self.name = dictionary["vehicle_id"] as! String
         self.route = (dictionary["route_id"] as! NSString).integerValue
         let arrivalEstimates = dictionary["arrival_estimates"] as! NSArray
+        
+        self.lineName = "name"
+        self.lineColor = "000000"
+        
         // look only at the next arrival
         for possibleEstimate in arrivalEstimates {
             if let arrivalEstimate = possibleEstimate as? NSDictionary {
