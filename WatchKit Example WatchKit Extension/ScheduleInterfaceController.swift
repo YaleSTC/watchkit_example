@@ -18,7 +18,6 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
     var busArrivals = [(bus: BusInfo, stopId: Int, time: TimeInterval)]()
     var buses = [BusInfo]()
     var session: WCSession!
-    var routesDataGlobal: Data!
     
     func updateBusArrivals() {
         print("Updating Bus Arrivals")
@@ -27,8 +26,6 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
         for bus in buses {
             for (arrivalStop, arrivalTime) in bus.timeOfArrival {
                 if BusInfo.nearbyStops.contains(arrivalStop) {
-                    bus.lineName = assignLineNameColor(vehicleID: bus.name, routesData: routesDataGlobal).0
-                    bus.lineColor = assignLineNameColor(vehicleID: bus.name, routesData: routesDataGlobal).1
                     busArrivals.append((bus: bus, stopId: arrivalStop, time: arrivalTime))
                 }
             }
@@ -84,13 +81,6 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             }
             print("vehicles data is: ")
             print(NSString(data: vehiclesData, encoding: 4)!)
-            
-            
-            if let routesData = applicationContext["routes"] as? Data {
-                routesDataGlobal = routesData
-                print("routes data is: ")
-                print(NSString(data: routesDataGlobal, encoding: 4)!)
-            }
         }
         
         if let stopsData = applicationContext["stops"] as? Data {
@@ -128,42 +118,11 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             }
             LocationModule.sharedModule.startUpdatingLocation()
         }
-    }
-    
-
-    func assignLineNameColor(vehicleID: String, routesData: Data) -> (String, String) {
-        var lineNum: String = ""
-        var lineName: String = ""
-        var lineColor: String = ""
-        do {
-                if let lines = try JSONSerialization.jsonObject(with: routesData, options: .allowFragments) as? NSDictionary {
-                    if let linesDict1 = lines["data"] as? NSDictionary {
-                        if let linesDict = linesDict1["128"] as? NSDictionary {
-                            for index in 0..<19 {
-                                if let line = linesDict[(index as NSNumber).stringValue] as? NSDictionary {
-                                    if let lineSegments = line["segments"] as? NSArray {
-                                        for lineSegment in lineSegments {
-                                            if let lineSegDict = lineSegment as? NSArray {
-                                                if ((lineSegDict[0] as? String) == vehicleID) {
-                                                    lineNum = line["route_id"] as! String
-                                                    print(lineNum)
-                                                    lineName = line["long_name"] as! String
-                                                    print(lineName)
-                                                    lineColor = line["color"] as! String
-                                                    print(lineColor)
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch {
-                print("error parsing")
-            }
-        return (lineName, lineColor)
+        
+        if let routesData = applicationContext["routes"] as? Data {
+            BusInfo.storeRouteNames(from: routesData)
+            self.updateUI()
+        }
     }
     
     override func willActivate() {

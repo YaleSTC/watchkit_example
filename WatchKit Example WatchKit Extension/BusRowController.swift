@@ -19,14 +19,14 @@ class BusRowController: NSObject {
     
     func updateUI() {
         if let bus = bus, let stop = stopId {
-            busNameLabel.setText(bus.lineName)
-            busNameLabel.setTextColor(hexStringToUIColor(hex: bus.lineColor))
+            busNameLabel.setText(bus.stringForRoute())
+            // busNameLabel.setTextColor(hexStringToUIColor(hex: bus.lineColor))
             busTimeLabel.setText(bus.stringForTimeOfArrivalAtStop(stop))
             busStationLabel.setText(bus.stringForStop(stop))
         }
     }
     
-    func hexStringToUIColor (hex:String) -> UIColor {
+    /*func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
         if (cString.hasPrefix("#")) {
@@ -46,5 +46,5 @@ class BusRowController: NSObject {
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
             alpha: CGFloat(1.0)
         )
-    }
+    }*/
 }
