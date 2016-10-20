@@ -25,6 +25,7 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
         for bus in buses {
             for (arrivalStop, arrivalTime) in bus.timeOfArrival {
                 if BusInfo.nearbyStops.contains(arrivalStop) {
+                    bus.addLineNameColor(lineName: lineName, lineColor: lineColor)
                     busArrivals.append((bus: bus, stopId: arrivalStop, time: arrivalTime))
                 }
             }
@@ -116,25 +117,26 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             print(NSString(data: vehiclesData, encoding: 4)!)
             
             //get line numbers and colors
-            
-            var vehicleID: String
+            let vehicleID: String
             var lineNum: String
             var lineName: String
             var lineColor: String
             
-            do {
-                if let lines = try JSONSerialization.jsonObject(with: vehiclesData, options: .allowFragments) as? NSDictionary {
-                    if let linesDict1 = lines["data"] as? NSDictionary {
-                        if let linesDict = linesDict1["128"] as? NSDictionary {
-                            for index in 0..<19 {
-                                if let line = linesDict[index as? String] as? NSDictionary {
-                                    if let lineSegments = line["segments"] as? NSArray {
-                                        for lineSegment in lineSegments {
-                                            if let lineSegDict = lineSegment as? NSDictionary {
-                                                if lineSegDict["0"] as? String == vehicleID {
-                                                    let lineNum = line["route_id"]
-                                                    let lineName = line["long_name"]
-                                                    let lineColor = line["color"]
+            if let vehiclesData = applicationContext["vehicles"] as? Data {
+                do {
+                    if let lines = try JSONSerialization.jsonObject(with: vehiclesData, options: .allowFragments) as? NSDictionary {
+                        if let linesDict1 = lines["data"] as? NSDictionary {
+                            if let linesDict = linesDict1["128"] as? NSDictionary {
+                                for index in 0..<19 {
+                                    if let line = linesDict[(index as NSNumber).stringValue] as? NSDictionary {
+                                        if let lineSegments = line["segments"] as? NSArray {
+                                            for lineSegment in lineSegments {
+                                                if let lineSegDict = lineSegment as? NSDictionary {
+                                                    if lineSegDict["0"] as? String == vehicleID {
+                                                        let lineNum = line["route_id"]
+                                                        let lineName = line["long_name"]
+                                                        let lineColor = line["color"]
+                                                    }
                                                 }
                                             }
                                         }
@@ -143,13 +145,11 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
                             }
                         }
                     }
+                } catch {
+                    print("error parsing")
                 }
-            } catch {
-                print("error parsing")
-            }
+
             
-            BusInfo.lineName = lineName
-            BusInfo.lineColor = lineColor
             
         if let routesData = applicationContext["routes"] as? Data {
             print("routes data is: ")
@@ -160,7 +160,10 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
         print("application context has arrived")
     }
     }
+    }
 
+    
+    
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()

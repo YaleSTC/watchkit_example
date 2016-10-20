@@ -19,7 +19,7 @@ class BusRowController: NSObject {
     
     func updateUI() {
         if let bus = bus, let stop = stopId {
-            busNameLabel.setText(bus.name)
+            busNameLabel.setText(bus.lineName)
             busTimeLabel.setText(bus.stringForTimeOfArrivalAtStop(stop))
             busStationLabel.setText(bus.stringForStop(stop))
         }

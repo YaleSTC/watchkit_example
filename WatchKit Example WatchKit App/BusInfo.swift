@@ -53,6 +53,7 @@ class BusInfo {
     }
     
     init(dictionary: NSDictionary) {
+        print("BusInfo Dictionary: ")
         print(dictionary)
         self.name = dictionary["vehicle_id"] as! String
         self.route = (dictionary["route_id"] as! NSString).integerValue
@@ -73,6 +74,12 @@ class BusInfo {
                 self.timeOfArrival[stopId] = durationUntilArrival
             }
         }
+    }
+    
+    func addLineNameColor(lineName: String, lineColor: String) {
+        self.lineName = lineName
+        self.lineColor = lineColor
+        print("Name and color added")
     }
 }
 
