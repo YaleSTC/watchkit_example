@@ -20,6 +20,7 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
     var session: WCSession!
     
     func updateBusArrivals() {
+        print("Updating Bus Arrivals")
         busArrivals = []
         // filter out the stops that are too far away, and create duplicates views of the bus as needed
         for bus in buses {
@@ -68,6 +69,20 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         // received data from the iOS app!
+        if let vehiclesData = applicationContext["vehicles"] as? Data {
+            //get vehicles data
+            do {
+                if let vehicles = try TransitAPIModule.sharedModule.extractData(vehiclesData) {
+                    self.buses = vehicles
+                    self.updateBusArrivals()
+                }
+            } catch {
+                print("error parsing")
+            }
+            //print("vehicles data is: ")
+            //print(NSString(data: vehiclesData, encoding: 4)!)
+        }
+        
         if let stopsData = applicationContext["stops"] as? Data {
             var stopNames = [Int: String]()
             var stopLocations = [Int: CLLocationCoordinate2D]()
@@ -93,6 +108,8 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             }
             BusInfo.stopNames = stopNames
             BusInfo.nearbyStops = Array(stopNames.keys)
+            print("BusInfo now has stop names \(BusInfo.stopNames)")
+            print("application context has arrived")
             
             // here start filtering based on user's location
             LocationModule.sharedModule.beginUpdates(stops: stopLocations) { (stopIds: [Int])->Void in
@@ -101,25 +118,13 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             }
             LocationModule.sharedModule.startUpdatingLocation()
         }
-        if let vehiclesData = applicationContext["vehicles"] as? Data {
-            do {
-                if let vehicles = try TransitAPIModule.sharedModule.extractData(vehiclesData) {
-                    self.buses = vehicles
-                    self.updateBusArrivals()
-                }
-            } catch {
-                print("error parsing")
-            }
-        }
-        if let routesData = applicationContext["routes"] as? Data {
-            print("routes data is: ")
-            print(NSString(data: routesData, encoding: 4)!)
-        }
         
-        print("BusInfo now has stop names \(BusInfo.stopNames)")
-        print("application context has arrived")
+        if let routesData = applicationContext["routes"] as? Data {
+            BusInfo.storeRouteNames(from: routesData)
+            self.updateUI()
+        }
     }
-
+    
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()

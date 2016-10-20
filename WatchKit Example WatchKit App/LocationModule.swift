@@ -25,7 +25,7 @@ class LocationModule: NSObject, CLLocationManagerDelegate
     var callback: (([Int]) ->Void)?
     var stops: [Int: CLLocationCoordinate2D]?
     
-    let MAX_NUM_CLOSE_STOPS = 3
+    let MAX_NUM_CLOSE_STOPS = 8
     
     // returns an array of the nearest stops
     // passed an dictionary of bustopIDs with their 2d coordinate

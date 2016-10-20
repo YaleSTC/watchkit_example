@@ -11,6 +11,7 @@ import CoreLocation
 
 class BusInfo {
     static var stopNames = [Int : String]()
+    static var routeNames = [Int : String]()
     // this array of stop IDs is updated periodically to represent the nearest stops to the user
     static var nearbyStops = [Int]()
     var name: String
@@ -46,14 +47,18 @@ class BusInfo {
     }
     
     func stringForStop(_ stop: Int) -> String {
-        return BusInfo.stopNames[stop] ?? "Unknown"
+        return BusInfo.stopNames[stop] ?? "Somewhere"
+    }
+    
+    func stringForRoute() -> String {
+        return BusInfo.routeNames[self.route] ?? "Bus"
     }
     
     init(dictionary: NSDictionary) {
-        print(dictionary)
         self.name = dictionary["vehicle_id"] as! String
         self.route = (dictionary["route_id"] as! NSString).integerValue
         let arrivalEstimates = dictionary["arrival_estimates"] as! NSArray
+        
         // look only at the next arrival
         for possibleEstimate in arrivalEstimates {
             if let arrivalEstimate = possibleEstimate as? NSDictionary {
@@ -66,6 +71,27 @@ class BusInfo {
                 self.timeOfArrival[stopId] = durationUntilArrival
             }
         }
+    }
+
+    /**
+     * Parses API response from "routes" and creates mapping from route ID -> route name
+     */
+    static func storeRouteNames(from routesData: Data) {
+        var names = [Int : String]()
+        do {
+            if let lines = try JSONSerialization.jsonObject(with: routesData, options: .allowFragments) as? NSDictionary {
+                if let linesArray = ((lines["data"] as? NSDictionary)?["128"] as? NSArray) as? [NSDictionary] {
+                    for line in linesArray {
+                        if let name = (line["long_name"] as? NSString) as? String, let routeId = (line["route_id"] as? NSString)?.integerValue {
+                            names[routeId] = name
+                        }
+                    }
+                }
+            }
+        } catch {
+            print("error parsing")
+        }
+        BusInfo.routeNames = names
     }
 }
 
