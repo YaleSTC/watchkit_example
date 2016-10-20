@@ -26,9 +26,9 @@
 		9B5D78771DA8414C00E106AD /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5D78761DA8414C00E106AD /* ExtensionDelegate.swift */; };
 		9B5D78791DA8414C00E106AD /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5D78781DA8414C00E106AD /* NotificationController.swift */; };
 		9B5D787B1DA8414C00E106AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B5D787A1DA8414C00E106AD /* Assets.xcassets */; };
+		9B6672121DB6C35000787F77 /* LocationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6021B1DA84F3A00F3B575 /* LocationModule.swift */; };
 		9B7965901DB572F900F079EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B79658F1DB572F900F079EA /* README.md */; };
 		9B7965911DB572F900F079EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B79658F1DB572F900F079EA /* README.md */; };
-		9BAA16271DB69FA6007CDEB5 /* LocationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6021B1DA84F3A00F3B575 /* LocationModule.swift */; };
 		9BD6B6491DB0CFD2001AA04E /* TransitAPIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */; };
 		9BD6B64A1DB0CFD2001AA04E /* TransitAPIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */; };
 		9BD6B64B1DB0D075001AA04E /* BusInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CEE371DA855F800B1B3AD /* BusInfo.swift */; };
@@ -264,7 +264,7 @@
 				TargetAttributes = {
 					9B5D784B1DA8414B00E106AD = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 6P694KK5PE;
+						DevelopmentTeam = 63934CMXQD;
 						ProvisioningStyle = Automatic;
 					};
 					9B5D785D1DA8414C00E106AD = {
@@ -339,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0C6021A1DA8479900F3B575 /* connectAPI.swift in Sources */,
+				9B6672121DB6C35000787F77 /* LocationModule.swift in Sources */,
 				9B5D78521DA8414B00E106AD /* ViewController.swift in Sources */,
 				9B5D78501DA8414B00E106AD /* AppDelegate.swift in Sources */,
 				9B7965901DB572F900F079EA /* README.md in Sources */,
@@ -358,7 +359,6 @@
 				9B5D78751DA8414C00E106AD /* InterfaceController.swift in Sources */,
 				4B6886D41DA975B900174CDA /* BusInfo.swift in Sources */,
 				9B7965911DB572F900F079EA /* README.md in Sources */,
-				9BAA16271DB69FA6007CDEB5 /* LocationModule.swift in Sources */,
 				4B6CEE8C1DA946B500B1B3AD /* BusRowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -578,7 +578,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6P694KK5PE;
+				DEVELOPMENT_TEAM = 63934CMXQD;
 				INFOPLIST_FILE = "WatchKit Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "yale.sdmp.WatchKit-Example";
@@ -591,7 +591,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6P694KK5PE;
+				DEVELOPMENT_TEAM = 63934CMXQD;
 				INFOPLIST_FILE = "WatchKit Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "yale.sdmp.WatchKit-Example";
