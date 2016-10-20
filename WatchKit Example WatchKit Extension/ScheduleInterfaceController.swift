@@ -79,8 +79,8 @@ class ScheduleInterfaceController: WKInterfaceController, WCSessionDelegate {
             } catch {
                 print("error parsing")
             }
-            print("vehicles data is: ")
-            print(NSString(data: vehiclesData, encoding: 4)!)
+            //print("vehicles data is: ")
+            //print(NSString(data: vehiclesData, encoding: 4)!)
         }
         
         if let stopsData = applicationContext["stops"] as? Data {

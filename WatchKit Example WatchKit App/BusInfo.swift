@@ -55,8 +55,6 @@ class BusInfo {
     }
     
     init(dictionary: NSDictionary) {
-        print("BusInfo Dictionary: ")
-        print(dictionary)
         self.name = dictionary["vehicle_id"] as! String
         self.route = (dictionary["route_id"] as! NSString).integerValue
         let arrivalEstimates = dictionary["arrival_estimates"] as! NSArray

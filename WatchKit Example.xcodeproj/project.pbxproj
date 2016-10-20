@@ -27,6 +27,7 @@
 		9B5D78791DA8414C00E106AD /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5D78781DA8414C00E106AD /* NotificationController.swift */; };
 		9B5D787B1DA8414C00E106AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B5D787A1DA8414C00E106AD /* Assets.xcassets */; };
 		9B6672121DB6C35000787F77 /* LocationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6021B1DA84F3A00F3B575 /* LocationModule.swift */; };
+		9B697F0F1DB95AFF00868C57 /* LocationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6021B1DA84F3A00F3B575 /* LocationModule.swift */; };
 		9B7965901DB572F900F079EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B79658F1DB572F900F079EA /* README.md */; };
 		9B7965911DB572F900F079EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9B79658F1DB572F900F079EA /* README.md */; };
 		9BD6B6491DB0CFD2001AA04E /* TransitAPIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6B6481DB0CFD2001AA04E /* TransitAPIModule.swift */; };
@@ -357,6 +358,7 @@
 				9B5D78771DA8414C00E106AD /* ExtensionDelegate.swift in Sources */,
 				4B6CEE891DA9464D00B1B3AD /* ScheduleInterfaceController.swift in Sources */,
 				9B5D78751DA8414C00E106AD /* InterfaceController.swift in Sources */,
+				9B697F0F1DB95AFF00868C57 /* LocationModule.swift in Sources */,
 				4B6886D41DA975B900174CDA /* BusInfo.swift in Sources */,
 				9B7965911DB572F900F079EA /* README.md in Sources */,
 				4B6CEE8C1DA946B500B1B3AD /* BusRowController.swift in Sources */,
