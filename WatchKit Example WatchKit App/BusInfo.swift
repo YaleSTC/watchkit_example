@@ -76,7 +76,7 @@ class BusInfo {
         }
     }
     
-    func addLineNameColor(lineName: String, lineColor: String) {
+    func addNameColor(lineName: String, lineColor: String) {
         self.lineName = lineName
         self.lineColor = lineColor
         print("Name and color added")
